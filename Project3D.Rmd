@@ -1,0 +1,80 @@
+---
+title: "VEGFR2 Sequence Alignment"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+With the code below, I am reading in the fasta file that I used to run the BLAST search at https://blast.ncbi.nlm.nih.gov/Blast.cgi. 
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file). 
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+_____________________________________________________________________________________
+
+Scientific Question:
+
+Does Bacteroides contain some of the inflammatory genes that are known from E.coli?
+
+Alzheimer’s risk has been shown with decreased levels of Bacteroides (Saji et al. 2019 and Alkasir et al. 2017)  and increased levels of Bacteroides (Vogt et al. 2017 and Saji et al. 2019). The link between the microbiome and AD is due to inflammation so knowing if Bacteroides has inflammatory genes would help understand this relationship between AD and the microbiome.  
+
+
+_____________________________________________________________________________________
+Scientific Hypothesis: { 2 points } 
+
+I hypothesize that due to high horizontal gene transfer of bacterial genomes and the success of both of these taxa within the human microbiome they will share these some of these proinflammatory genes.
+_____________________________________________________________________________________
+Below, this bit of code is responsible for loading in all of the necessary packages. Here is where I will define the packages and what they are loaded in for {3 points for adequately describing the packages}:
+
+1) BioConductor
+2) DECIPHER: https://www.bioconductor.org/packages/release/bioc/vignettes/DECIPHER/inst/doc/ArtOfAlignmentInR.pdf
+3) Biostrings:
+
+Before running the code below, in the console I needed to install the packages using the commands:
+
+{2 points to write here what commands needed to be typed into the console to install the necessary packages}
+
+```{r}
+library(BiocManager)
+library(DECIPHER)
+library(Biostrings)
+
+# 3 points for loading all of the packages needed correctly
+```
+
+_____________________________________________________________________________________
+
+Below, this code is responsible for loading in BioCManager and BS genome)
+```{r}
+#load packages
+
+install.packages("BiocManager")
+library(BiocManager)
+install.packages("BSgenome")
+library(BSgenome)
+dna
+```
+The above fasta file was searched at NCBI with a BLAST search. The top 6 hits were all Homo Sapien variants that were compared here. Information on how to analyze the results from the BLAST search can be found here: https://ftp.ncbi.nlm.nih.gov/pub/factsheets/HowTo_BLAST_NewResultPage.pdf
+_____________________________________________________________________________________
+
+Below we can see what genomes are available in BSgenome
+
+```{r}
+#view available genomes
+
+available.genomes()
+```
+Below loads and stores the ecoli genome from BSgenome
+
+```{r}
+#load genome
+
+BiocManager::install("BSgenome.Ecoli.NCBI.20080805")
+library(BSgenome.Ecoli.NCBI.20080805)
+
+#store genome
+
+Ecoli <- BSgenome.Ecoli.NCBI.20080805
+```
+
